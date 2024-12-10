@@ -16,9 +16,6 @@ public class UserService {
     private TutorRepository userRepository;
 
     @Autowired
-    private AuthService authService;
-
-    @Autowired
     private LogService logService;
 
     public Optional<Tutor> getUserByEmail(String email) {
@@ -43,7 +40,7 @@ public class UserService {
             newUser.setFirstName(auxtoken.getGivenName());
             newUser.setLastName(auxtoken.getFamilyName());
             newUser.setRole("USER");
-            this.logService.Created("user", newUser.getUsername(), authService.getEmailFromToken());
+            this.logService.Created("user", newUser.getUsername(), newUser.getEmail());
             this.userRepository.save(newUser); // Salvar no banco
             System.out.println("Novo usuario: " + auxtoken.getEmail());
         }
